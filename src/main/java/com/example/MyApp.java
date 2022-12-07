@@ -1,16 +1,19 @@
 package com.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 public class MyApp {
 
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigClass.class);
 
-        MessageService messageService = applicationContext.getBean("messageService", MessageService.class);
+        MyNameMessageService myNameMessageService = ctx.getBean(MyNameMessageService.class);
+        System.out.println(myNameMessageService.getMessage());
 
-        System.out.println(messageService.getMessage());
-
-        applicationContext.close();
     }
 }
